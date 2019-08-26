@@ -7,240 +7,202 @@ calls from the client and passes the calls down to the
 
 */
 
-
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-const UsersController = require('../../controllers/users_management/UsersController.js');
+const UsersController = require("../../controllers/users_management/UsersController.js");
 
-
-
-   //Middle ware that is specific to this router
+//Middle ware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  
   next();
 });
 
+router.post("/user_registration", urlencodedParser, function(
+  request,
+  response
+) {
+  var date = new Date();
+  date.setHours(date.getHours() + 0);
 
+  var jsonObject_ = {
+    UserName: request.body.UserName,
+    UserEmail: request.body.UserEmail,
+    PhoneNumber: request.body.PhoneNumber,
+    Password: request.body.Password,
+    RegistrationDate: date
+  };
 
-   router.post('/user_registration', urlencodedParser,function(request,response){
-	   
-	   var date = new Date();
-	   date.setHours(date.getHours()+0);
-	   
-        var	jsonObject_ = {
-         
-		    UserName:request.body.UserName,
-			UserEmail:request.body.UserEmail,
-			PhoneNumber:request.body.PhoneNumber,
-			Password:request.body.Password,
-			RegistrationDate:date
-		 
-		
-      
-        };
-	
-	      var myUsersControllerObject=new UsersController();
-          var myUsersControllerObjectPromise = myUsersControllerObject.insert_users(jsonObject_);
-	          
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-			   console.log(err);
-           response.send("An error occurred");
-           })
+  var myUsersControllerObject = new UsersController();
+  var myUsersControllerObjectPromise = myUsersControllerObject.insert_users(
+    jsonObject_
+  );
 
-    });
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      console.log(err);
+      response.send("An error occurred");
+    }
+  );
+});
 
+router.get("/myForm", function(req, res) {
+  res.sendFile(__dirname + "/" + "myForm.html");
+});
 
-    
+router.post("/user_login", urlencodedParser, function(request, response) {
+  var jsonObject_ = {
+    AttemptedUserEmail: request.body.AttemptedUserEmail,
+    AttemptedPassword: request.body.AttemptedPassword
+  };
 
-    router.get('/myForm', function (req, res) {
-   res.sendFile( __dirname + "/" + "myForm.html" );
-    })
+  var myUsersControllerObject = new UsersController();
+  var myUsersControllerObjectPromise = myUsersControllerObject.user_login(
+    jsonObject_
+  );
 
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      console.log(err);
+      response.send("An error occurred");
+    }
+  );
+});
 
-    router.post('/user_login', urlencodedParser,function(request,response){
-	   
-	   
-	   
-        var	jsonObject_ = {
-         
-		    
-			AttemptedUserEmail:request.body.AttemptedUserEmail,
-			AttemptedPassword:request.body.AttemptedPassword
-		 
-		
-      
-        };
-	
-	      var myUsersControllerObject=new UsersController();
-          var myUsersControllerObjectPromise = myUsersControllerObject.user_login(jsonObject_);
-	          
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-			   console.log(err);
-           response.send("An error occurred");
-           })
+router.post("/get_all_users", urlencodedParser, function(request, response) {
+  var myUsersControllerObject = new UsersController();
+  var myUsersControllerObjectPromise = myUsersControllerObject.get_all_users();
 
-    });
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      console.log(err);
+      response.send("An error occurred");
+    }
+  );
+});
 
+router.post("/update_users", urlencodedParser, function(request, response) {
+  var date = new Date();
+  date.setHours(date.getHours() + 0);
 
+  var jsonObject_ = {
+    UserName: request.body.UserName,
+    UserEmail: request.body.UserEmail,
+    PhoneNumber: request.body.PhoneNumber,
+    Password: request.query.Password,
+    RegistrationDate: date
+  };
 
+  var myUsersControllerObject = new UsersController();
+  var myUsersControllerObjectPromise = myUsersControllerObject.batch_users_update(
+    jsonObject_
+  );
 
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      response.send("An error occurred");
+      console.log(err);
+    }
+  );
+});
 
+router.post("/get_specific_users", urlencodedParser, function(
+  request,
+  response
+) {
+  var mKey = request.body.column_name;
+  //var mValue=parseInt(request.query.search_value, 10);
+  var mValue = request.body.search_value;
 
-   router.post('/get_all_users',urlencodedParser,function(request,response){
-    var myUsersControllerObject=new UsersController();
-    var myUsersControllerObjectPromise = myUsersControllerObject.get_all_users();
-	      
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-			   console.log(err);
-           response.send("An error occurred");
-           })
+  var myUsersControllerObject = new UsersController();
 
-   });
+  var myUsersControllerObjectPromise = myUsersControllerObject.get_specific_users(
+    mKey,
+    mValue
+  );
 
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      response.send("An error occurred");
+      console.log(err);
+    }
+  );
+});
 
+router.post("/update_individual_users", urlencodedParser, function(
+  request,
+  response
+) {
+  var column_name = request.body.ColumnName;
+  var value_ = request.body.ColumnValue;
 
+  var date = new Date();
+  date.setHours(date.getHours() + 0);
 
+  var jsonObject_ = {
+    UserName: request.body.UserName,
+    UserEmail: request.body.UserEmail,
+    PhoneNumber: request.body.PhoneNumber,
+    Password: request.query.Password,
+    RegistrationDate: date
+  };
 
+  var myUsersControllerObject = new UsersController();
+  var myUsersControllerObjectPromise = myUsersControllerObject.individual_users_update(
+    column_name,
+    value_,
+    jsonObject_
+  );
 
-   router.post('/update_users',urlencodedParser,function(request,response){
-	   
-	  var date = new Date();
-	  date.setHours(date.getHours()+0);
-	
-    var	jsonObject_ = {
-         
-		    UserName:request.body.UserName,
-			UserEmail:request.body.UserEmail,
-			PhoneNumber:request.body.PhoneNumber,
-			Password:request.query.Password,
-			RegistrationDate:date
-		
-      
-        };
-	
-    var myUsersControllerObject=new UsersController();
-    var myUsersControllerObjectPromise = myUsersControllerObject.batch_users_update(jsonObject_);
-	   
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-           response.send("An error occurred");
-			   console.log(err);
-           })
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      response.send("An error occurred");
+      console.log(err);
+    }
+  );
+});
 
-   });
+router.post("/delete_individual_users", urlencodedParser, function(
+  request,
+  response
+) {
+  var column_name = request.body.column_name;
+  //var mValue=parseInt(request.body.search_value, 10);
+  var value_ = request.body.search_value;
 
+  var myUsersControllerObject = new UsersController();
+  var myUsersControllerObjectPromise = myUsersControllerObject.delete_users_record(
+    column_name,
+    value_
+  );
 
+  myUsersControllerObjectPromise.then(
+    function(result) {
+      response.send(result);
+    },
+    function(err) {
+      response.send("An error occurred");
+      console.log(err);
+    }
+  );
+});
 
-
-
-
-
-   router.post('/get_specific_users',urlencodedParser,function(request,response){
-        var mKey=request.body.column_name;
-        //var mValue=parseInt(request.query.search_value, 10);
-        var mValue=request.body.search_value;
-   
-        var myUsersControllerObject=new UsersController();
-
-
-        var myUsersControllerObjectPromise = myUsersControllerObject.get_specific_users(mKey,mValue);
-	        
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-           response.send("An error occurred");
-			   console.log(err);
-           })
-	        
-
-     });
-
-
-
-
-
-
-   router.post('/update_individual_users',urlencodedParser,function(request,response){
-	
-          var column_name=request.body.ColumnName;
-          var value_=request.body.ColumnValue;
-	   
-	      var date = new Date();
-	      date.setHours(date.getHours()+0);
-	
-          var	jsonObject_ = {
-         
-		          UserName:request.body.UserName,
-			      UserEmail:request.body.UserEmail,
-			      PhoneNumber:request.body.PhoneNumber,
-			      Password:request.query.Password,
-			      RegistrationDate:date
-		
-      
-           };
-	
-         var myUsersControllerObject=new UsersController();
-         var myUsersControllerObjectPromise = myUsersControllerObject.individual_users_update(column_name,value_,jsonObject_);
-	         	        
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-           response.send("An error occurred");
-			   console.log(err);
-           })
-
-  });
-
-
-
-
-
-
-   router.post('/delete_individual_users',urlencodedParser,function(request,response){
-	
-    var column_name=request.body.column_name;
-    //var mValue=parseInt(request.body.search_value, 10);
-    var value_=request.body.search_value;
-	
-    var myUsersControllerObject=new UsersController();
-    var myUsersControllerObjectPromise = myUsersControllerObject.delete_users_record(column_name,value_);
-	      	        
-		   
-		   myUsersControllerObjectPromise.then(function(result) {
-        
-           response.send(result);
-           }, function(err) {
-           response.send("An error occurred");
-			   console.log(err);
-           })
-
-   });
- 
- 
 module.exports = router;
-
-
-
-

@@ -9,142 +9,122 @@ functions.
 
 */
 
+const ModelMaster = require("../ModelMaster.js");
+const TableName = "transactions";
 
+module.exports = class TransactionsModel {
+  constructor() {}
 
-const ModelMaster=require('../ModelMaster.js');
-const TableName="transactions";
+  insert_transactions(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
+      var myModelMasterPromise = myModelMaster.insert(TableName, jsonObject_);
 
-module.exports = class TransactionsModel{
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
+  get_all_transactions() {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
-    constructor(){                                                                                                                                                                                                                                                             
-     
- }
-	
-	
-	
-   insert_transactions(jsonObject_){
-	   return new Promise(function(resolve, reject) {
-	   
- 	   const  myModelMaster=new ModelMaster();
+      var myModelMasterPromise = myModelMaster.selectAll(TableName);
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-       var myModelMasterPromise = myModelMaster.insert(TableName,jsonObject_);
-		   
-		   
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-		   
-	   })
- 
-    }		
-	
-	
+  get_specific_transactions(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
-	
-	
-	
-   get_all_transactions(){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+      var myModelMasterPromise = myModelMaster.selectSpecific(
+        TableName,
+        ColumnName,
+        value_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-        var myModelMasterPromise = myModelMaster.selectAll(TableName);
-		 myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		
-     })
-    }	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-   get_specific_transactions(ColumnName,value_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+  batch_transactions_update(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
+      var myModelMasterPromise = myModelMaster.batch_update(
+        TableName,
+        jsonObject_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-        var myModelMasterPromise = myModelMaster.selectSpecific(TableName,ColumnName,value_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-     })
-    }		
-	
-	
-	
-	
-   batch_transactions_update(jsonObject_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+  individual_transactions_update(ColumnName, value_, jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
+      var myModelMasterPromise = myModelMaster.individual_update(
+        TableName,
+        jsonObject_,
+        ColumnName,
+        value_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-        var myModelMasterPromise = myModelMaster.batch_update(TableName,jsonObject_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-     })
-    }		
-	
-	
-	
-	
-	
-   individual_transactions_update(ColumnName,value_,jsonObject_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+  delete_transactions_record(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
-        
-		var myModelMasterPromise = myModelMaster.individual_update(TableName,jsonObject_,ColumnName,value_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-     })
-    }		
-	
-	
-	
-	
-   delete_transactions_record(ColumnName,value_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
-
-        
-		var myModelMasterPromise = myModelMaster.delete(TableName,ColumnName,value_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-     })
-    }		
-	
-	
-	
-	
-	
-}
+      var myModelMasterPromise = myModelMaster.delete(
+        TableName,
+        ColumnName,
+        value_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+};

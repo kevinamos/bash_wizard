@@ -9,142 +9,122 @@ functions.
 
 */
 
+const ModelMaster = require("../ModelMaster.js");
+const TableName = "tickets";
 
+module.exports = class TicketsModel {
+  constructor() {}
 
-const ModelMaster=require('../ModelMaster.js');
-const TableName="tickets";
+  insert_tickets(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
+      var myModelMasterPromise = myModelMaster.insert(TableName, jsonObject_);
 
-module.exports = class TicketsModel{
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
+  get_all_tickets() {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
-    constructor(){                                                                                                                                                                                                                                                             
-     
- }
-	
-	
-	
-   insert_tickets(jsonObject_){
-	   return new Promise(function(resolve, reject) {
-	   
- 	   const  myModelMaster=new ModelMaster();
+      var myModelMasterPromise = myModelMaster.selectAll(TableName);
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-       var myModelMasterPromise = myModelMaster.insert(TableName,jsonObject_);
-		   
-		   
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-		   
-	   })
- 
-    }		
-	
-	
+  get_specific_tickets(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
-	
-	
-	
-   get_all_tickets(){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+      var myModelMasterPromise = myModelMaster.selectSpecific(
+        TableName,
+        ColumnName,
+        value_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-        var myModelMasterPromise = myModelMaster.selectAll(TableName);
-		 myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		
-     })
-    }	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-   get_specific_tickets(ColumnName,value_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+  batch_tickets_update(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
+      var myModelMasterPromise = myModelMaster.batch_update(
+        TableName,
+        jsonObject_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-        var myModelMasterPromise = myModelMaster.selectSpecific(TableName,ColumnName,value_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-     })
-    }		
-	
-	
-	
-	
-   batch_tickets_update(jsonObject_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+  individual_tickets_update(ColumnName, value_, jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
+      var myModelMasterPromise = myModelMaster.individual_update(
+        TableName,
+        jsonObject_,
+        ColumnName,
+        value_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-        var myModelMasterPromise = myModelMaster.batch_update(TableName,jsonObject_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-     })
-    }		
-	
-	
-	
-	
-	
-   individual_tickets_update(ColumnName,value_,jsonObject_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
+  delete_tickets_record(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myModelMaster = new ModelMaster();
 
-        
-		var myModelMasterPromise = myModelMaster.individual_update(TableName,jsonObject_,ColumnName,value_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-     })
-    }		
-	
-	
-	
-	
-   delete_tickets_record(ColumnName,value_){
-	   return new Promise(function(resolve, reject) {
-        const  myModelMaster=new ModelMaster();
-
-        
-		var myModelMasterPromise = myModelMaster.delete(TableName,ColumnName,value_);
-		   myModelMasterPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-     })
-    }		
-	
-	
-	
-	
-	
-}
+      var myModelMasterPromise = myModelMaster.delete(
+        TableName,
+        ColumnName,
+        value_
+      );
+      myModelMasterPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+};

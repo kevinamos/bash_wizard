@@ -6,139 +6,120 @@ passes the calls down to the "EventCategoriesModel" class
 
 */
 
+const EventCategoriesModel = require("../../models/events_management/EventCategoriesModel.js");
 
+module.exports = class EventCategoriesController {
+  constructor() {}
 
-const EventCategoriesModel = require('../../models/events_management/EventCategoriesModel.js');
+  insert_event_categories(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myEventCategoriesObject = new EventCategoriesModel();
+      var myEventCategoriesObjectPromise = myEventCategoriesObject.insert_event_categories(
+        jsonObject_
+      );
 
+      myEventCategoriesObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
+  get_all_event_categories() {
+    return new Promise(function(resolve, reject) {
+      const myEventCategoriesObject = new EventCategoriesModel();
+      var myEventCategoriesObjectPromise = myEventCategoriesObject.get_all_event_categories();
 
+      myEventCategoriesObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-module.exports = class EventCategoriesController{
-    constructor(){
+  get_specific_event_categories(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myEventCategoriesObject = new EventCategoriesModel();
+      var myEventCategoriesObjectPromise = myEventCategoriesObject.get_specific_event_categories(
+        ColumnName,
+        value_
+      );
 
-    }
-	
-	
-	
-   insert_event_categories(jsonObject_){
-	 return new Promise(function(resolve, reject) {  
-     const  myEventCategoriesObject=new EventCategoriesModel();
-     var myEventCategoriesObjectPromise = myEventCategoriesObject.insert_event_categories(jsonObject_);
-		  
-		   
-		   myEventCategoriesObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		 
-	 })
-	}		
+      myEventCategoriesObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-	
-	
-	
-	
-   get_all_event_categories(){
-	   return new Promise(function(resolve, reject) {  
-        const  myEventCategoriesObject=new EventCategoriesModel();
-        var myEventCategoriesObjectPromise = myEventCategoriesObject.get_all_event_categories();
-		   
-		   
-		   myEventCategoriesObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-	
-	
-	
-   get_specific_event_categories(ColumnName,value_){
-	   return new Promise(function(resolve, reject) {  
-         const  myEventCategoriesObject=new EventCategoriesModel();
-        var myEventCategoriesObjectPromise = myEventCategoriesObject.get_specific_event_categories(ColumnName,value_);
-		   
-		   
-		   myEventCategoriesObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-	 })
-    }	
-			
-	
-	
-	
-   batch_event_categories_update(jsonObject_){
-	   return new Promise(function(resolve, reject) {  
-       const  myEventCategoriesObject=new EventCategoriesModel();
-        
-		var myEventCategoriesObjectPromise = myEventCategoriesObject.batch_event_categories_update(jsonObject_);
-		   
-		   
-		   myEventCategoriesObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-	
-	
-	
-   individual_event_categories_update(ColumnName,value_,jsonObject_){
-	   return new Promise(function(resolve, reject) { 
-        const  myEventCategoriesObject=new EventCategoriesModel();
-        
-		var myEventCategoriesObjectPromise = myEventCategoriesObject.individual_event_categories_update(ColumnName,value_);
-		   
-		   
-		   myEventCategoriesObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-	
-	
-	
-   delete_event_categories_record(ColumnName,value_){
-	   return new Promise(function(resolve, reject) { 
-        const  myEventCategoriesObject=new EventCategoriesModel();
-        
-		var myEventCategoriesObjectPromise = myEventCategoriesObject.delete_event_categories_record(ColumnName,value_);
-		    
-		   
-		   myEventCategoriesObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-		
-	
-	
-}
+  batch_event_categories_update(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myEventCategoriesObject = new EventCategoriesModel();
+
+      var myEventCategoriesObjectPromise = myEventCategoriesObject.batch_event_categories_update(
+        jsonObject_
+      );
+
+      myEventCategoriesObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  individual_event_categories_update(ColumnName, value_, jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myEventCategoriesObject = new EventCategoriesModel();
+
+      var myEventCategoriesObjectPromise = myEventCategoriesObject.individual_event_categories_update(
+        ColumnName,
+        value_
+      );
+
+      myEventCategoriesObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  delete_event_categories_record(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myEventCategoriesObject = new EventCategoriesModel();
+
+      var myEventCategoriesObjectPromise = myEventCategoriesObject.delete_event_categories_record(
+        ColumnName,
+        value_
+      );
+
+      myEventCategoriesObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+};

@@ -6,139 +6,120 @@ passes the calls down to the "EventPrivacyModel" class
 
 */
 
+const EventPrivacyModel = require("../../models/events_management/EventPrivacyModel.js");
 
+module.exports = class EventPrivacyController {
+  constructor() {}
 
-const EventPrivacyModel = require('../../models/events_management/EventPrivacyModel.js');
+  insert_event_privacy(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myEventPrivacyObject = new EventPrivacyModel();
+      var myEventPrivacyObjectPromise = myEventPrivacyObject.insert_event_privacy(
+        jsonObject_
+      );
 
+      myEventPrivacyObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
+  get_all_event_privacy() {
+    return new Promise(function(resolve, reject) {
+      const myEventPrivacyObject = new EventPrivacyModel();
+      var myEventPrivacyObjectPromise = myEventPrivacyObject.get_all_event_privacy();
 
+      myEventPrivacyObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-module.exports = class EventPrivacyController{
-    constructor(){
+  get_specific_event_privacy(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myEventPrivacyObject = new EventPrivacyModel();
+      var myEventPrivacyObjectPromise = myEventPrivacyObject.get_specific_event_privacy(
+        ColumnName,
+        value_
+      );
 
-    }
-	
-	
-	
-   insert_event_privacy(jsonObject_){
-	 return new Promise(function(resolve, reject) {  
-     const  myEventPrivacyObject=new EventPrivacyModel();
-     var myEventPrivacyObjectPromise = myEventPrivacyObject.insert_event_privacy(jsonObject_);
-		  
-		   
-		   myEventPrivacyObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		 
-	 })
-	}		
+      myEventPrivacyObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
 
-	
-	
-	
-	
-   get_all_event_privacy(){
-	   return new Promise(function(resolve, reject) {  
-        const  myEventPrivacyObject=new EventPrivacyModel();
-        var myEventPrivacyObjectPromise = myEventPrivacyObject.get_all_event_privacy();
-		   
-		   
-		   myEventPrivacyObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-	
-	
-	
-   get_specific_event_privacy(ColumnName,value_){
-	   return new Promise(function(resolve, reject) {  
-         const  myEventPrivacyObject=new EventPrivacyModel();
-        var myEventPrivacyObjectPromise = myEventPrivacyObject.get_specific_event_privacy(ColumnName,value_);
-		   
-		   
-		   myEventPrivacyObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-	 })
-    }	
-			
-	
-	
-	
-   batch_event_privacy_update(jsonObject_){
-	   return new Promise(function(resolve, reject) {  
-       const  myEventPrivacyObject=new EventPrivacyModel();
-        
-		var myEventPrivacyObjectPromise = myEventPrivacyObject.batch_event_privacy_update(jsonObject_);
-		   
-		   
-		   myEventPrivacyObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-	
-	
-	
-   individual_event_privacy_update(ColumnName,value_,jsonObject_){
-	   return new Promise(function(resolve, reject) { 
-        const  myEventPrivacyObject=new EventPrivacyModel();
-        
-		var myEventPrivacyObjectPromise = myEventPrivacyObject.individual_event_privacy_update(ColumnName,value_);
-		   
-		   
-		   myEventPrivacyObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-	
-	
-	
-   delete_event_privacy_record(ColumnName,value_){
-	   return new Promise(function(resolve, reject) { 
-        const  myEventPrivacyObject=new EventPrivacyModel();
-        
-		var myEventPrivacyObjectPromise = myEventPrivacyObject.delete_event_privacy_record(ColumnName,value_);
-		    
-		   
-		   myEventPrivacyObjectPromise.then(function(result) {
-        
-           resolve(result);
-           }, function(err) {
-           reject(err);
-           })
-		   
-	 })
-    }		
-	
-	
-		
-	
-	
-}
+  batch_event_privacy_update(jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myEventPrivacyObject = new EventPrivacyModel();
+
+      var myEventPrivacyObjectPromise = myEventPrivacyObject.batch_event_privacy_update(
+        jsonObject_
+      );
+
+      myEventPrivacyObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  individual_event_privacy_update(ColumnName, value_, jsonObject_) {
+    return new Promise(function(resolve, reject) {
+      const myEventPrivacyObject = new EventPrivacyModel();
+
+      var myEventPrivacyObjectPromise = myEventPrivacyObject.individual_event_privacy_update(
+        ColumnName,
+        value_
+      );
+
+      myEventPrivacyObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  delete_event_privacy_record(ColumnName, value_) {
+    return new Promise(function(resolve, reject) {
+      const myEventPrivacyObject = new EventPrivacyModel();
+
+      var myEventPrivacyObjectPromise = myEventPrivacyObject.delete_event_privacy_record(
+        ColumnName,
+        value_
+      );
+
+      myEventPrivacyObjectPromise.then(
+        function(result) {
+          resolve(result);
+        },
+        function(err) {
+          reject(err);
+        }
+      );
+    });
+  }
+};
